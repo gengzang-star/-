@@ -1,0 +1,127 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Reusable global primitives
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+    
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isVerifiedUser() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    // Helper: Validates User format
+    function isValidUser(data, userId) {
+      return data.keys().hasAll(['uid', 'displayName', 'email', 'createdAt'])
+        && data.keys().size() == 4
+        && data.uid == userId
+        && data.displayName is string
+        && data.displayName.size() > 0
+        && data.displayName.size() <= 100
+        && data.email is string
+        && data.email.size() > 0
+        && data.email.size() <= 150
+        && data.createdAt == request.time;
+    }
+
+    // Helper: Validates Inquiry format
+    function isValidInquiry(data) {
+      return data.keys().hasAll(['userId', 'userName', 'email', 'category', 'title', 'content', 'createdAt'])
+        && data.keys().size() == 7
+        && data.userId == request.auth.uid
+        && data.userName is string
+        && data.userName.size() > 0
+        && data.userName.size() <= 100
+        && data.email is string
+        && data.email.size() > 0
+        && data.email.size() <= 150
+        && data.category is string
+        && (data.category == "소화환" || data.category == "변비환" || data.category == "배송 및 교환" || data.category == "기타")
+        && data.title is string
+        && data.title.size() > 0
+        && data.title.size() <= 200
+        && data.content is string
+        && data.content.size() > 0
+        && data.content.size() <= 4000
+        && data.createdAt == request.time;
+    }
+
+    // Helper: Validates Review format
+    function isValidReview(data) {
+      return data.keys().hasAll(['userId', 'userName', 'productId', 'rating', 'title', 'content', 'createdAt'])
+        && data.keys().size() == 7
+        && data.userId == request.auth.uid
+        && data.userName is string
+        && data.userName.size() > 0
+        && data.userName.size() <= 100
+        && data.productId is string
+        && (data.productId == "digestion" || data.productId == "constipation")
+        && data.rating is int
+        && data.rating >= 1
+        && data.rating <= 5
+        && data.title is string
+        && data.title.size() > 0
+        && data.title.size() <= 200
+        && data.content is string
+        && data.content.size() > 0
+        && data.content.size() <= 4000
+        && data.createdAt == request.time;
+    }
+
+    // Helper: Validates Like format
+    function isValidStoryLike(data) {
+      return data.keys().hasAll(['userId', 'storyId', 'createdAt'])
+        && data.keys().size() == 3
+        && data.userId == request.auth.uid
+        && data.storyId is string
+        && data.storyId.size() > 0
+        && data.storyId.size() <= 100
+        && data.createdAt == request.time;
+    }
+
+    // users Collection rules
+    match /users/{userId} {
+      allow get: if isSignedIn() && request.auth.uid == userId;
+      allow create: if isVerifiedUser() && isValidId(userId) && isValidUser(request.resource.data, userId);
+      allow update: if isVerifiedUser() && isValidId(userId) && isValidUser(request.resource.data, userId) && request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if false;
+    }
+
+    // inquiries Collection rules
+    match /inquiries/{inquiryId} {
+      allow get: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isVerifiedUser() && isValidId(inquiryId) && isValidInquiry(request.resource.data);
+      allow update: if false;
+      allow delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+
+    // reviews Collection rules
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if isVerifiedUser() && isValidId(reviewId) && isValidReview(request.resource.data);
+      allow update: if isVerifiedUser() && isValidId(reviewId) 
+        && resource.data.userId == request.auth.uid
+        && isValidReview(request.resource.data)
+        && request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+
+    // storyLikes Collection rules
+    match /storyLikes/{likeId} {
+      allow read: if true;
+      allow create: if isVerifiedUser() && isValidId(likeId) && isValidStoryLike(request.resource.data);
+      allow delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+  }
+}

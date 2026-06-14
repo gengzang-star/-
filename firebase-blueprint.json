@@ -1,0 +1,75 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Profile data for registered users of Heerang.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The unique user ID" },
+        "displayName": { "type": "string", "description": "User's display name" },
+        "email": { "type": "string", "description": "User's email" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" }
+      },
+      "required": ["uid", "displayName", "email", "createdAt"]
+    },
+    "Inquiry": {
+      "title": "Inquiry",
+      "description": "1:1 Customer inquiry submitted by a user.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "User ID of inquirer" },
+        "userName": { "type": "string", "description": "User display name" },
+        "email": { "type": "string", "description": "Contact email" },
+        "category": { "type": "string", "enum": ["소화환", "변비환", "배송 및 교환", "기타"], "description": "Category of inquiry" },
+        "title": { "type": "string", "description": "Title of the inquiry" },
+        "content": { "type": "string", "description": "Inquiry content details" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Timestamp when created" }
+      },
+      "required": ["userId", "userName", "email", "category", "title", "content", "createdAt"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "Product purchase review written by a customer.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "User ID of the reviewer" },
+        "userName": { "type": "string", "description": "User display name" },
+        "productId": { "type": "string", "enum": ["digestion", "constipation"], "description": "Target product identifier" },
+        "rating": { "type": "integer", "description": "Rating score from 1 to 5" },
+        "title": { "type": "string", "description": "Review summary title" },
+        "content": { "type": "string", "description": "Review text details" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Timestamp when created" }
+      },
+      "required": ["userId", "userName", "productId", "rating", "title", "content", "createdAt"]
+    },
+    "StoryLike": {
+      "title": "Story Like",
+      "description": "Bookmarks or hearts for stories and health tips.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "User ID of liker" },
+        "storyId": { "type": "string", "description": "ID of story post liked" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Timestamp when liked" }
+      },
+      "required": ["userId", "storyId", "createdAt"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profiles containing display identity."
+    },
+    "inquiries/{inquiryId}": {
+      "schema": "Inquiry",
+      "description": "1:1 wellness consultations and other inquiries."
+    },
+    "reviews/{reviewId}": {
+      "schema": "Review",
+      "description": "Authentic client-generated product feedback."
+    },
+    "storyLikes/{likeId}": {
+      "schema": "StoryLike",
+      "description": "Interactive hearts representing readers engagement."
+    }
+  }
+}

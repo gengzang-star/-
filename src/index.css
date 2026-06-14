@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Gowun Batang", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Gowun Batang", "Playfair Display", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Custom palette defined in design plan */
+  --color-warm-cream: #FAF8F5;
+  --color-warm-beige: #F4EFEA;
+  --color-olive-green: #4A5D4E;
+  --color-olive-light: #6A7E6E;
+  --color-olive-dark: #2B392F;
+  --color-brand-gold: #C5A880;
+  --color-gold-bright: #D4AF37;
+  --color-deep-brown: #3E2D24;
+}
+
+/* Base style resets */
+body {
+  background-color: var(--color-warm-cream);
+  color: var(--color-deep-brown);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom scrollbar to keep layout luxury */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-warm-cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-gold);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-olive-green);
+}

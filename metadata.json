@@ -1,0 +1,6 @@
+{
+  "name": "희랑",
+  "description": "건강을 담아 기쁨을 나누는 웰니스 브랜드 희랑의 공식 홈페이지입니다. 소화환, 변비환 제품 상세 정보 및 건강 이야기, 실시간 리뷰, 1:1 건강 문의를 제공합니다.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

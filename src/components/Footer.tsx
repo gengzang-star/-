@@ -77,17 +77,17 @@ export default function Footer({ setActiveTab }: FooterProps) {
         <div className="md:col-span-4 space-y-3.5">
           <h4 className="font-serif text-sm font-bold text-warm-beige">희랑 웰니스 연합 본소</h4>
           <div className="text-xs text-warm-beige/60 space-y-1.5 font-light">
-            <p>상호명 : 희랑 주식회사 | 대표자 : 최희랑</p>
-            <p>소재지 : 서울특별시 강남구 자연로 喜 (동의한방타워 7F)</p>
-            <p>사업자등록번호 : 120-88-09124 | 정밀 통신판매업신고 필함</p>
-            <p>전화상담 : 1544-0987 | 이메일 : cs@heerangwellness.com</p>
+            <p>상호명 : 희랑 | 대표자 : 김규남</p>
+            <p>소재지 : 경기도 광주시 파발로 137번길 3, 3층 50호</p>
+            <p>사업자등록번호 : 674-88-03617 | 정밀 통신판매업신고 필함</p>
+            <p>이메일 : namiz9@naver.com</p>
           </div>
         </div>
       </div>
 
       {/* Trademark copyright bottom logs */}
       <div className="max-w-7xl mx-auto pt-8 flex flex-col sm:flex-row items-center justify-between text-[10px] text-warm-beige/45 gap-4">
-        <p>Copyright © {currentYear} 주식회사 희랑 All rights reserved. Registered Trademark.</p>
+        <p>Copyright © {currentYear} 희랑 All rights reserved. Registered Trademark.</p>
         
         <div className="flex items-center space-x-1">
           <span>Crafted for exquisite life with</span>

@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { ArrowRight, Sparkles, Smile, ShieldCheck, Heart, Leaf, Star } from 'lucide-react';
-import heroImg from '../assets/images/heerang_hero_1781448326901.jpg';
+import heroImg from '../assets/images/heerang_hero_clean_1781449862496.jpg';
 import productImg from '../assets/images/heerang_products_1781448343351.jpg';
 
 interface MainPageProps {

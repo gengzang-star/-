@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Phone, MessageCircle, HelpCircle, Mail, RotateCcw, Truck, MessageSquare, ShieldCheck, ChevronDown, CheckCircle } from 'lucide-react';
+import { MessageCircle, HelpCircle, Mail, RotateCcw, Truck, MessageSquare, ShieldCheck, ChevronDown, CheckCircle } from 'lucide-react';
 import { getCurrentlyLoggedUser, fetchInquiries, addInquiry, IS_MOCK_MODE, HeerangSessionUser } from '../firebase';
 import { HeerangInquiry, InquiryCategory } from '../types';
 
@@ -128,23 +128,12 @@ export default function CustomerCenter() {
           {/* Quick contact Card */}
           <div className="bg-white p-6 rounded-3xl border border-warm-beige shadow-xs space-y-4">
             <div className="flex items-start space-x-4">
-              <div className="w-10 h-10 bg-warm-beige rounded-xl flex items-center justify-center text-olive-green flex-shrink-0">
-                <Phone size={18} />
-              </div>
-              <div>
-                <span className="text-[10px] text-deep-brown/50 tracking-wider">유선 전화 긴급 문의</span>
-                <p className="text-base font-bold text-deep-brown tracking-wide mt-0.5">1544-0987</p>
-                <p className="text-[10px] text-deep-brown/60 leading-relaxed">평일 10:00 - 17:00 (점심 12시-13시)</p>
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-4 pt-2">
               <div className="w-10 h-10 bg-yellow-100 rounded-xl flex items-center justify-center text-yellow-800 flex-shrink-0">
                 <MessageCircle size={18} />
               </div>
               <div className="flex-1">
                 <span className="text-[10px] text-deep-brown/50 tracking-wider">카카오톡 플친 대기 상담</span>
-                <p className="text-xs font-semibold text-deep-brown mt-0.5">@희랑 웰니스 공식</p>
+                <p className="text-xs font-semibold text-deep-brown mt-0.5">@희랑 공식</p>
                 <button
                   onClick={() => alert('카카오톡 채널 상담 준비 단계입니다. 고객센터 1:1 온라인 문의를 이용해 주시면 신속히 문자로 답신을 올리겠습니다!')}
                   className="mt-2 text-[10px] text-white bg-yellow-600 px-3.5 py-1.5 rounded-lg hover:bg-yellow-700 transition-all font-semibold uppercase tracking-wider flex items-center space-x-1 cursor-pointer"
